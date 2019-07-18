@@ -1,0 +1,17 @@
+// tool
+.tool {
+	background-color: $info;
+	height: 100%;
+}
+
+.tool-item {
+	margin-bottom: 50px;
+	i {
+		font-size: $font-size-base * 2.25; // 36px
+		color: $white;
+	}
+}
+
+.tool-title {
+	margin-top: 335px;
+}

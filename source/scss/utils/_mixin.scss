@@ -1,0 +1,33 @@
+@mixin cycle($length, $color) {
+  width: $length;
+  height: $length;
+  border-radius: 50%;
+  border: 2px solid $color;
+}
+
+// 圖片置中
+.bg-cover {
+  background-size: cover;
+  background-position: center center;
+}
+
+// 圖片佔滿
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+// 文字隱藏
+.text-hide {
+  text-indent: 101%;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0;
+}
+
+// 文字垂直
+// 輸入 vertical-rl 或 vertical-lr 方向
+@mixin text-vertical($direction) {
+  writing-mode: $direction;
+  -webkit-writing-mode: $direction;
+}

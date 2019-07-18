@@ -1,0 +1,154 @@
+.mission {
+  position: relative;
+  height: 100%;
+
+  &-input-group {
+    width: 445px;
+    height: 56px;
+    display: flex;
+  }
+
+  &-input {
+    border-radius: 0px;
+    border: none;
+    outline: none;
+    
+    &::placeholder {
+      font-weight: bold;
+      font-style: italic;
+    }
+  }
+
+  &-btn {
+    background-color: $white;
+    font-size: $font-size-l;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  &-complete {
+    @include cycle(48px, $info);
+    position: relative;
+    // transition: all 0.3s ease;
+
+    &::after {
+      content: "";
+      @include cycle(36px, $info);
+      background-color: $info;
+      // visibility: hidden;
+      // opacity: 0;
+    }
+  }
+
+  &-name {
+    font-size: $font-size-l;
+    color: $info;
+  }
+
+  &-complete-item {
+    @include cycle(12px, $pomodoro-color);
+    border-width: 1px;
+  }
+
+  &-countDown {
+    font-size: $font-size-base * 11; // 176px
+    color: $primary;
+    line-height: 1;
+  }
+
+  &-list {
+    width: 445px;
+  }
+
+  &-item {
+    position: relative;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background-color: darken($white, 30%);
+    }
+
+    &-complete {
+      @include cycle(24px, $info);
+
+      &::after {
+        content: "";
+        @include cycle(16px, $info);
+        background-color: $info;
+      }
+    }
+
+    &-name {
+      color: $info;
+      margin-right: auto;
+    }
+
+    &-pomodoro {
+      @include cycle(24px, $info);
+      > i {
+        color: $info;
+      }
+    }
+  }
+
+  &-more {
+    text-decoration: none;
+  }
+
+  &.mission-primary {
+    background-color: $mission-bg-color;
+
+    .mission-input {
+      color: $mission-color;
+      &::placeholder {
+        color: $mission-color;
+      }
+    }
+
+    .mission-btn {
+      color: $mission-color;
+    }
+
+    .mission-countDown {
+      color: $mission-color;
+    }
+
+    .mission-more {
+      color: $mission-color;
+    }
+  }
+
+  &.mission-secondary {
+    background-color: $mission-bg-relax-color;
+
+    .mission-input {
+      color: $mission-relax-color;
+      &::placeholder {
+        color: $mission-relax-color;
+      }
+    }
+
+    .mission-btn {
+      color: $mission-relax-color;
+    }
+
+    .mission-countDown {
+      color: $mission-relax-color;
+    }
+
+    .mission-more {
+      color: $mission-relax-color;
+    }
+
+    .mission-complete-item {
+      border-color: $info;
+    }
+  }
+}
