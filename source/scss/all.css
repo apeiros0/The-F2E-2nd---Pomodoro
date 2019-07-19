@@ -74,8 +74,12 @@ table {
 *::after,
 html,
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -4691,7 +4695,7 @@ html {
   height: 540px;
   border-radius: 50%;
   position: absolute;
-  top: 135px;
+  top: 180px;
   right: -270px;
   z-index: 2;
 }
@@ -4746,6 +4750,7 @@ html {
 .mission {
   position: relative;
   height: 100%;
+  padding-left: 85px;
 }
 
 .mission-input-group {
@@ -4805,6 +4810,15 @@ html {
   border-radius: 50%;
   border: 2px solid #003164;
   background-color: #003164;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+}
+
+.mission-complete:hover::after, .mission-complete:focus::after {
+  visibility: visible;
+  opacity: 1;
 }
 
 .mission-name {
@@ -4828,6 +4842,8 @@ html {
 
 .mission-list {
   width: 445px;
+  height: 126px;
+  overflow: hidden;
 }
 
 .mission-item {
@@ -4859,6 +4875,15 @@ html {
   border-radius: 50%;
   border: 2px solid #003164;
   background-color: #003164;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.mission-item-complete:hover::after, .mission-item-complete:focus::after {
+  visibility: visible;
+  opacity: 1;
 }
 
 .mission-item-name {
@@ -4878,7 +4903,48 @@ html {
 }
 
 .mission-more {
+  width: 445px;
+}
+
+.mission-more-link {
   text-decoration: none;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.mission-more-link.active {
+  -webkit-animation: moreAnimation 2s infinite;
+          animation: moreAnimation 2s infinite;
+}
+
+@-webkit-keyframes moreAnimation {
+  0% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
+  50% {
+    -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
+}
+
+@keyframes moreAnimation {
+  0% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
+  50% {
+    -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
 }
 
 .mission.mission-primary {
@@ -4913,7 +4979,7 @@ html {
   color: #ff4384;
 }
 
-.mission.mission-primary .mission-more {
+.mission.mission-primary .mission-more-link {
   color: #ff4384;
 }
 
@@ -4949,7 +5015,7 @@ html {
   color: #00a7ff;
 }
 
-.mission.mission-secondary .mission-more {
+.mission.mission-secondary .mission-more-link {
   color: #00a7ff;
 }
 
@@ -4959,6 +5025,11 @@ html {
 
 .tool {
   background-color: #003164;
+  height: 100vh;
+  padding-right: 85px;
+}
+
+.tool-list {
   height: 100%;
 }
 
@@ -4969,9 +5040,5 @@ html {
 .tool-item i {
   font-size: 2.25rem;
   color: #ffffff;
-}
-
-.tool-title {
-  margin-top: 335px;
 }
 /*# sourceMappingURL=all.css.map */

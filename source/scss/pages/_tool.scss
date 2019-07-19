@@ -1,17 +1,18 @@
 // tool
 .tool {
-	background-color: $info;
-	height: 100%;
-}
+  background-color: $info;
+  height: 100vh;
+  padding-right: 85px;
 
-.tool-item {
-	margin-bottom: 50px;
-	i {
-		font-size: $font-size-base * 2.25; // 36px
-		color: $white;
-	}
-}
+  &-list {
+    height: 100%;
+  }
 
-.tool-title {
-	margin-top: 335px;
+  &-item {
+    margin-bottom: 50px;
+    i {
+      font-size: $font-size-base * 2.25; // 36px
+      color: $white;
+    }
+  }
 }
