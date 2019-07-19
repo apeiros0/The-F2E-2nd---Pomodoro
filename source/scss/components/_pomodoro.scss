@@ -28,7 +28,7 @@
     z-index: 3;
 
     &-img {
-      > i {
+      i {
         font-size: $font-size-l * 4; // 96px
       }
     }
@@ -43,7 +43,7 @@
 
     .pomodoro-start-btn {
       &-img {
-        > i {
+        i {
           color: $pomodoro-color;
         }
       }
@@ -59,7 +59,7 @@
 
     .pomodoro-start-btn {
       &-img {
-        > i {
+        i {
           color: $pomodoro-relax-color;
         }
       }

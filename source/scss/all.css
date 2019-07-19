@@ -4719,7 +4719,7 @@ html {
   z-index: 3;
 }
 
-.pomodoro-start-btn-img > i {
+.pomodoro-start-btn-img i {
   font-size: 6rem;
 }
 
@@ -4731,7 +4731,7 @@ html {
   background-color: #ff4384;
 }
 
-.pomodoro.pomodoro-primary .pomodoro-start-btn-img > i {
+.pomodoro.pomodoro-primary .pomodoro-start-btn-img i {
   color: #ff4384;
 }
 
@@ -4743,7 +4743,7 @@ html {
   background-color: #00a7ff;
 }
 
-.pomodoro.pomodoro-secondary .pomodoro-start-btn-img > i {
+.pomodoro.pomodoro-secondary .pomodoro-start-btn-img i {
   color: #00a7ff;
 }
 

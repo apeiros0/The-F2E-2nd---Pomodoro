@@ -1,16 +1,39 @@
 (() => {
-    let missionArray = JSON.parse(localStorage.getItem('missionContent')) || [];
     let inputMissionBtn = document.querySelector('.js-mission-btn');
+    let mission = document.querySelector('.js-mission');
+    let missionArray = JSON.parse(localStorage.getItem('missionContent')) || [];
     let missionList = document.querySelector('.js-mission-list');
     let missionMoreLink = document.querySelector('.js-mission-more-link');
     let missionTime = document.querySelector('.js-mission-time');
+    let missionCountDown = document.querySelector('.js-mission-countDown');
+    let pomodoro = document.querySelector('.js-pomodoro');
     let pomodoroStartBtn = document.querySelector('.js-pomodoro-start-btn');
-    let missionCountDown = document.querySelector('.js-mission-countDown')
+    let pomodoroPlay = document.querySelector('.js-pomodoro-play');
+    let pomodoroPause = document.querySelector('.js-pomodoro-pause');
 
-    inputMissionBtn.addEventListener('click', addMission);
-    missionList.addEventListener('click', delMission);
-    missionTime.addEventListener('click', delMission);
-    pomodoroStartBtn.addEventListener('click', pomodoroStart)
+    // pomodoro time
+    let pomodoroTime;
+    let pomodoroMinute = { 'time': 1, 'counter': 0 };
+    let pomodoroRelaxMinute = { 'time': 5, 'counter': 0 };
+    let pomodoroSecond = 0;
+
+    // 監聽
+    inputMissionBtn.addEventListener('click', addMission); // 輸入監聽
+    missionList.addEventListener('click', delMission); // missionList Btn 監聽
+    missionTime.addEventListener('click', delMission); // missionTime Btn 監聽
+
+    // pomodoro 計時監聽
+    pomodoroStartBtn.addEventListener('click', () => {
+        if (pomodoroMinute['counter'] < pomodoroRelaxMinute['counter']) {
+            pomodoroStart(pomodoroMinute['time']);
+        }
+        else if (pomodoroMinute['counter'] > pomodoroRelaxMinute['counter']) { 
+            pomodoroStart(pomodoroRelaxMinute['time']); 
+        }
+        else { pomodoroStart(pomodoroMinute['time']); }
+    });
+
+    pomodoroPause.addEventListener('click', pomodoroStop); // pomodoro 暫停監聽
 
     // --------------------------------------
     // mission 
@@ -93,35 +116,75 @@
     // --------------------------------------
     // pomodoro 
     // --------------------------------------
-    function pomodoroStart() {
-        let pomodoroMinute = 25;
-        let pomodoroSecond = 0;
+    function pomodoroStart(minute) {
+        // 顯示 icon
+        pomodoroPlay.classList.add('d-none');
+        pomodoroPause.classList.remove('d-none');
 
         // 倒數計時
-        let pomodoroTime = setInterval(() => {
-            // 當 minute 和 second 為 0 停止計時
-            if (pomodoroMinute === 0 && pomodoroSecond === 0) {
+        pomodoroTime = setInterval(() => {
+            // 當 minute 和 second 為 0 停止計時，並判斷結束樣式
+            if (minute === 0 && pomodoroSecond === 0) {
+                // 停止計時
                 clearInterval(pomodoroTime);
+
+                // 顯示 pause icon
+                pomodoroPlay.classList.remove('d-none');
+                pomodoroPause.classList.add('d-none');
+
+                if (pomodoroMinute['counter'] < pomodoroRelaxMinute['counter']) {
+                    pomodoroFinish();
+                }
+                else if (pomodoroMinute['counter'] > pomodoroRelaxMinute['counter']) {
+                    pomodoroRelaxFinish()
+                }
+                else {
+                    pomodoroFinish();
+                }
                 return;
             }
             else {
                 // second 為 0，從 60 秒倒數、分鐘 -1
                 if (pomodoroSecond === 0) {
-                    pomodoroSecond = 60;
-                    pomodoroMinute--;
+                    pomodoroSecond = 60; // 60sec
+                    minute--;
                 }
                 // 倒數
                 pomodoroSecond--;
             }
 
-            // 判斷是否小於 10，小於 10 則加 0 到數字上 (09、08 ...)
-            let pomodoroMinuteIfZero = (pomodoroMinute < 10 && pomodoroMinute >= 0) ? '0' + pomodoroMinute : pomodoroMinute;
-            let pomodoroSecondIfZero = (pomodoroSecond < 10 && pomodoroSecond >= 0) ? '0' + pomodoroSecond : pomodoroSecond;
-
-            missionCountDown.innerHTML = pomodoroMinuteIfZero + ":" + pomodoroSecondIfZero;
+            pomodoroUpdate(minute);
 
         }, 1000); // 每秒跑 function
-
     }
 
+    function pomodoroUpdate(minute) {
+        // 判斷是否小於 10，小於 10 則加 0 到數字上 (09、08 ...)
+        let pomodoroMinuteIfZero = (minute < 10 && minute >= 0) ? '0' + minute : minute;
+        let pomodoroSecondIfZero = (pomodoroSecond < 10 && pomodoroSecond >= 0) ? '0' + pomodoroSecond : pomodoroSecond;
+
+        missionCountDown.innerHTML = pomodoroMinuteIfZero + ":" + pomodoroSecondIfZero;
+    }
+
+    // pomodoro 結束樣式
+    function pomodoroFinish() {
+        mission.classList.remove('mission-primary');
+        mission.classList.add('mission-secondary');
+        pomodoro.classList.remove('pomodoro-primary');
+        pomodoro.classList.add('pomodoro-secondary');
+        pomodoroMinute['counter']++;
+    }
+
+    // pomodoro relax 結束樣式
+    function pomodoroRelaxFinish() {
+        mission.classList.add('mission-primary');
+        mission.classList.remove('mission-secondary');
+        pomodoro.classList.add('pomodoro-primary');
+        pomodoro.classList.remove('pomodoro-secondary');
+        pomodoroRelaxMinute['counter']++;
+    }
+
+    function pomodoroStop() {
+        console.log(123);
+    }
 })();
