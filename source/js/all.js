@@ -7,14 +7,16 @@
     let missionTime = document.querySelector('.js-mission-time');
     let missionCountDown = document.querySelector('.js-mission-countDown');
     let pomodoro = document.querySelector('.js-pomodoro');
-    let pomodoroStartBtn = document.querySelector('.js-pomodoro-start-btn');
+    // let pomodoroStartBtn = document.querySelector('.js-pomodoro-start-btn');
     let pomodoroPlay = document.querySelector('.js-pomodoro-play');
     let pomodoroPause = document.querySelector('.js-pomodoro-pause');
 
     // pomodoro time
     let pomodoroTime;
-    let pomodoroMinute = { 'time': 1, 'counter': 0 };
-    let pomodoroRelaxMinute = { 'time': 5, 'counter': 0 };
+    let pomodoroWorkMinute = { 'time': 25, 'counter': 0, 'temp': 0 }; // 初始時間  跑過幾次  暫停時間
+    let pomodoroRelaxMinute = { 'time': 5, 'counter': 0, 'temp': 0 };
+    let tempCounter = 0; // 計算暫停次數
+    let pomodoroMinute = 0;
     let pomodoroSecond = 0;
 
     // 監聽
@@ -23,14 +25,41 @@
     missionTime.addEventListener('click', delMission); // missionTime Btn 監聽
 
     // pomodoro 計時監聽
-    pomodoroStartBtn.addEventListener('click', () => {
-        if (pomodoroMinute['counter'] < pomodoroRelaxMinute['counter']) {
-            pomodoroStart(pomodoroMinute['time']);
+    pomodoroPlay.addEventListener('click', () => {
+        // 休息 5 分結束後，從 25 分重新開始計算
+        if (pomodoroWorkMinute['counter'] < pomodoroRelaxMinute['counter']) {
+            if (tempCounter > 0) {
+                pomodoroMinute = pomodoroWorkMinute['temp'];
+            } else {
+                pomodoroMinute = pomodoroWorkMinute['time'];
+            }
+            pomodoroStart(pomodoroMinute);
+
+            // pomodoroMinute = pomodoroWorkMinute['time'];
+            // pomodoroStart(pomodoroMinute);
         }
-        else if (pomodoroMinute['counter'] > pomodoroRelaxMinute['counter']) { 
-            pomodoroStart(pomodoroRelaxMinute['time']); 
+        // 工作 25 分結束後，從 5 分重新開始計算
+        else if (pomodoroWorkMinute['counter'] > pomodoroRelaxMinute['counter']) {
+            if (tempCounter > 0) {
+                pomodoroMinute = pomodoroRelaxMinute['temp'];
+            } else {
+                pomodoroMinute = pomodoroRelaxMinute['time'];
+            }
+            pomodoroStart(pomodoroMinute);
+
+            // pomodoroMinute = pomodoroRelaxMinute['time'];
+            // pomodoroStart(pomodoroMinute);
         }
-        else { pomodoroStart(pomodoroMinute['time']); }
+        else {
+            if (tempCounter > 0) {
+                pomodoroMinute = pomodoroWorkMinute['temp'];
+            } else {
+                pomodoroMinute = pomodoroWorkMinute['time'];
+            }
+            pomodoroStart(pomodoroMinute);
+            // pomodoroMinute = pomodoroWorkMinute['time'];
+            // pomodoroStart(pomodoroMinute);
+        }
     });
 
     pomodoroPause.addEventListener('click', pomodoroStop); // pomodoro 暫停監聽
@@ -116,7 +145,7 @@
     // --------------------------------------
     // pomodoro 
     // --------------------------------------
-    function pomodoroStart(minute) {
+    function pomodoroStart() {
         // 顯示 icon
         pomodoroPlay.classList.add('d-none');
         pomodoroPause.classList.remove('d-none');
@@ -124,7 +153,7 @@
         // 倒數計時
         pomodoroTime = setInterval(() => {
             // 當 minute 和 second 為 0 停止計時，並判斷結束樣式
-            if (minute === 0 && pomodoroSecond === 0) {
+            if (pomodoroMinute === 0 && pomodoroSecond === 0) {
                 // 停止計時
                 clearInterval(pomodoroTime);
 
@@ -132,10 +161,10 @@
                 pomodoroPlay.classList.remove('d-none');
                 pomodoroPause.classList.add('d-none');
 
-                if (pomodoroMinute['counter'] < pomodoroRelaxMinute['counter']) {
+                if (pomodoroWorkMinute['counter'] < pomodoroRelaxMinute['counter']) {
                     pomodoroFinish();
                 }
-                else if (pomodoroMinute['counter'] > pomodoroRelaxMinute['counter']) {
+                else if (pomodoroWorkMinute['counter'] > pomodoroRelaxMinute['counter']) {
                     pomodoroRelaxFinish()
                 }
                 else {
@@ -146,21 +175,20 @@
             else {
                 // second 為 0，從 60 秒倒數、分鐘 -1
                 if (pomodoroSecond === 0) {
-                    pomodoroSecond = 60; // 60sec
-                    minute--;
+                    pomodoroSecond = 5; // 60sec
+                    pomodoroMinute--;
                 }
                 // 倒數
                 pomodoroSecond--;
             }
 
-            pomodoroUpdate(minute);
-
+            pomodoroUpdate();
         }, 1000); // 每秒跑 function
     }
 
     function pomodoroUpdate(minute) {
         // 判斷是否小於 10，小於 10 則加 0 到數字上 (09、08 ...)
-        let pomodoroMinuteIfZero = (minute < 10 && minute >= 0) ? '0' + minute : minute;
+        let pomodoroMinuteIfZero = (pomodoroMinute < 10 && pomodoroMinute >= 0) ? '0' + pomodoroMinute : pomodoroMinute;
         let pomodoroSecondIfZero = (pomodoroSecond < 10 && pomodoroSecond >= 0) ? '0' + pomodoroSecond : pomodoroSecond;
 
         missionCountDown.innerHTML = pomodoroMinuteIfZero + ":" + pomodoroSecondIfZero;
@@ -172,7 +200,10 @@
         mission.classList.add('mission-secondary');
         pomodoro.classList.remove('pomodoro-primary');
         pomodoro.classList.add('pomodoro-secondary');
-        pomodoroMinute['counter']++;
+        // pomodoro 跑完加 1
+        pomodoroWorkMinute['counter']++;
+        // 結束後，清空 tempCounter
+        tempCounter = 0;
     }
 
     // pomodoro relax 結束樣式
@@ -181,10 +212,20 @@
         mission.classList.remove('mission-secondary');
         pomodoro.classList.add('pomodoro-primary');
         pomodoro.classList.remove('pomodoro-secondary');
+        // relax 跑完加 1
         pomodoroRelaxMinute['counter']++;
+        // 結束後，清空 tempCounter
+        tempCounter = 0;
     }
 
     function pomodoroStop() {
-        console.log(123);
+        pomodoroPlay.classList.remove('d-none');
+        pomodoroPause.classList.add('d-none');
+        pomodoroWorkMinute['temp'] = pomodoroMinute;
+        pomodoroRelaxMinute['temp'] = pomodoroMinute;
+        console.log(pomodoroWorkMinute['temp'], pomodoroRelaxMinute['temp']);
+        tempCounter++;
+        clearInterval(pomodoroTime);
+        return;
     }
 })();
