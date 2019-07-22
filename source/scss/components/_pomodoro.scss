@@ -13,14 +13,33 @@
     position: relative;
     width: ($pomodoro-length - 40px);
     height: ($pomodoro-length - 40px);
-    // background-color: $pomodoro-color;
     border-radius: 50%;
     z-index: 2;
   }
 
+  &-animation {
+    position: absolute;
+    border-radius: 50%;
+    width: $pomodoro-length;
+    height: $pomodoro-length;
+    fill: none;
+
+    &-circle {
+      stroke-width: (40px); // 寬度 (厚度)
+      // stroke-dasharray  實線 + 虛線間距 (只輸入一個數字都相同)
+      // stroke-dashoffset 將虛線推移 (位移)
+      stroke-dasharray: 1633; // 1633 剛好包覆圓
+      // stroke-dashoffset: 1633; // 使用推移做移動 (推移 1633 為空，0 為全滿)
+
+      transform-origin: center; // 置中
+      transform: rotate(-90deg); // 旋轉 -90 度
+
+      transition: all 1s ease-in-out;
+    }
+  }
+
   &-start-btn {
     position: absolute;
-    cursor: pointer;
     width: 96px;
     height: 96px;
     background-color: $white;
@@ -28,8 +47,17 @@
     z-index: 3;
 
     &-img {
+      border-radius: 50%;
       i {
+        border-radius: 50%;
         font-size: $font-size-l * 4; // 96px
+        cursor: pointer;
+        &.disabled {
+          // 禁用事件
+          pointer-events: none;
+          background-color: darken($white, 20%);
+          cursor: default;
+        }
       }
     }
   }
@@ -41,10 +69,33 @@
       background-color: $pomodoro-color;
     }
 
+    .pomodoro-animation {
+      &-circle {
+        stroke: $pomodoro-color;
+      }
+    }
+
     .pomodoro-start-btn {
       &-img {
         i {
           color: $pomodoro-color;
+        }
+      }
+    }
+
+    &.active {
+      // background-color: $pomodoro-color;
+      &::after {
+        background-color: $white;
+        border: 4px solid $pomodoro-color;
+      }
+
+      .pomodoro-start-btn {
+        &-img {
+          background-color: $pomodoro-color;
+          i {
+            color: $white;
+          }
         }
       }
     }
@@ -57,10 +108,33 @@
       background-color: $pomodoro-relax-color;
     }
 
+    .pomodoro-animation {
+      &-circle {
+        stroke: $pomodoro-relax-color;
+      }
+    }
+
     .pomodoro-start-btn {
       &-img {
         i {
           color: $pomodoro-relax-color;
+        }
+      }
+    }
+
+    &.active {
+      // background-color: $pomodoro-relax-color;
+      &::after {
+        background-color: $white;
+        border: 4px solid $pomodoro-relax-color;
+      }
+
+      .pomodoro-start-btn {
+        &-img {
+          background-color: $pomodoro-relax-color;
+          i {
+            color: $white;
+          }
         }
       }
     }

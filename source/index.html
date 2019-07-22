@@ -25,7 +25,20 @@
 
                     <!-- mission-time -->
                     <section>
-                        <section class="mission-time js-mission-time"></section>
+                        <section class="mission-time js-mission-time">
+                            <section class="row no-gutters align-items-center">
+                                <section class="col-1 js-mission-complete"></section>
+                                <section class="col-7">
+                                    <section class="row">
+                                        <section class="col-12 js-mission-name"></section>
+                                        
+                                        <section class="col-12 mt-1">
+                                            <section class="mission-complete-list js-mission-complete-list mt-1"></section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
                         <section>
                             <span class="mission-countDown js-mission-countDown font-weight-bold">25:00</span>
                         </section>
@@ -42,7 +55,13 @@
                     </section>
 
                     <!-- pomodoro -->
-                    <section class="pomodoro pomodoro-primary js-pomodoro d-flex justify-content-center align-items-center">
+                    <section
+                        class="pomodoro pomodoro-primary js-pomodoro d-flex justify-content-center align-items-center">
+                        <svg class="pomodoro-animation">
+                            <!-- cx 及 cy 是指定圓形的中心點，而 r 是圓形的半徑 -->
+                            <circle class="pomodoro-animation-circle js-pomodoro-animation-circle" cx="50%" cy="50%"
+                                r="260" stroke-dashoffset="1633"></circle>
+                        </svg>
                         <div class="pomodoro-start-btn js-pomodoro-start-btn">
                             <div class="pomodoro-start-btn-img d-flex justify-content-center align-items-center">
                                 <i class="material-icons js-pomodoro-play">play_arrow</i>

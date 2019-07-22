@@ -57,8 +57,13 @@
   }
 
   &-complete-item {
-    @include cycle(12px, $pomodoro-color);
+    @include cycle(12px, $white);
     border-width: 1px;
+    fill: none;
+    circle {
+      stroke-width: 10px;
+      stroke-dasharray: 37;
+    }
   }
 
   &-countDown {
@@ -166,6 +171,13 @@
     .mission-more-link {
       color: $mission-color;
     }
+
+    .mission-complete-item {
+      border-color: $mission-bg-color;
+      circle {
+        stroke: $mission-color;
+      }
+    }
   }
 
   &.mission-secondary {
@@ -191,7 +203,10 @@
     }
 
     .mission-complete-item {
-      border-color: $info;
+      border-color: $mission-bg-relax-color;
+      circle {
+        stroke: $info;
+      }
     }
   }
 }

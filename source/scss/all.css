@@ -4709,9 +4709,27 @@ html {
   z-index: 2;
 }
 
+.pomodoro-animation {
+  position: absolute;
+  border-radius: 50%;
+  width: 540px;
+  height: 540px;
+  fill: none;
+}
+
+.pomodoro-animation-circle {
+  stroke-width: 40px;
+  stroke-dasharray: 1633;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+
 .pomodoro-start-btn {
   position: absolute;
-  cursor: pointer;
   width: 96px;
   height: 96px;
   background-color: #ffffff;
@@ -4719,8 +4737,20 @@ html {
   z-index: 3;
 }
 
+.pomodoro-start-btn-img {
+  border-radius: 50%;
+}
+
 .pomodoro-start-btn-img i {
+  border-radius: 50%;
   font-size: 6rem;
+  cursor: pointer;
+}
+
+.pomodoro-start-btn-img i.disabled {
+  pointer-events: none;
+  background-color: #cccccc;
+  cursor: default;
 }
 
 .pomodoro.pomodoro-primary {
@@ -4731,8 +4761,25 @@ html {
   background-color: #ff4384;
 }
 
+.pomodoro.pomodoro-primary .pomodoro-animation-circle {
+  stroke: #ff4384;
+}
+
 .pomodoro.pomodoro-primary .pomodoro-start-btn-img i {
   color: #ff4384;
+}
+
+.pomodoro.pomodoro-primary.active::after {
+  background-color: #ffffff;
+  border: 4px solid #ff4384;
+}
+
+.pomodoro.pomodoro-primary.active .pomodoro-start-btn-img {
+  background-color: #ff4384;
+}
+
+.pomodoro.pomodoro-primary.active .pomodoro-start-btn-img i {
+  color: #ffffff;
 }
 
 .pomodoro.pomodoro-secondary {
@@ -4743,8 +4790,25 @@ html {
   background-color: #00a7ff;
 }
 
+.pomodoro.pomodoro-secondary .pomodoro-animation-circle {
+  stroke: #00a7ff;
+}
+
 .pomodoro.pomodoro-secondary .pomodoro-start-btn-img i {
   color: #00a7ff;
+}
+
+.pomodoro.pomodoro-secondary.active::after {
+  background-color: #ffffff;
+  border: 4px solid #00a7ff;
+}
+
+.pomodoro.pomodoro-secondary.active .pomodoro-start-btn-img {
+  background-color: #00a7ff;
+}
+
+.pomodoro.pomodoro-secondary.active .pomodoro-start-btn-img i {
+  color: #ffffff;
 }
 
 .mission {
@@ -4830,8 +4894,14 @@ html {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 2px solid #ff4384;
+  border: 2px solid #ffffff;
   border-width: 1px;
+  fill: none;
+}
+
+.mission-complete-item circle {
+  stroke-width: 10px;
+  stroke-dasharray: 37;
 }
 
 .mission-countDown {
@@ -4983,6 +5053,14 @@ html {
   color: #ff4384;
 }
 
+.mission.mission-primary .mission-complete-item {
+  border-color: #ffedf7;
+}
+
+.mission.mission-primary .mission-complete-item circle {
+  stroke: #ff4384;
+}
+
 .mission.mission-secondary {
   background-color: #e5f3ff;
 }
@@ -5020,7 +5098,11 @@ html {
 }
 
 .mission.mission-secondary .mission-complete-item {
-  border-color: #003164;
+  border-color: #e5f3ff;
+}
+
+.mission.mission-secondary .mission-complete-item circle {
+  stroke: #003164;
 }
 
 .tool {
