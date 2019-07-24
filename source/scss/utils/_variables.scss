@@ -7,6 +7,7 @@ $blue: #00a7ff;
 $blue-dark: #003164;
 $bule-light: #e5f3ff;
 $white: #ffffff;
+$gray: rgba($white, 0.2);
 
 // --------------------------------
 // theme color
@@ -16,6 +17,15 @@ $secondary: $blue;
 $light: $white;
 $info: $blue-dark;
 
+$themes: (
+  "primary": $red,
+  "secondary": $blue,
+  "info": $blue-dark,
+  "light": $white,
+  "dark": $gray,
+  "success": $pink,
+);
+
 // --------------------------------
 // mission color
 // --------------------------------
@@ -24,7 +34,6 @@ $mission-bg-relax-color: $bule-light;
 $mission-color: $red;
 $mission-relax-color: $blue;
 
-
 // --------------------------------
 // font style
 // --------------------------------
@@ -32,7 +41,17 @@ $font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
 $font-size-l: $font-size-base * 1.5 !default; // 24px
 $font-size-s: $font-size-base * 0.875 !default;
 
-// $font-color: $red;
+$text-color: $red;
+
+@each $key, $value in $themes {
+  .text-#{$key} {
+    color: $value;
+  }
+
+  .bg-#{$key} {
+    background-color: $value;
+  }
+}
 
 // --------------------------------
 // pomodoro
@@ -41,5 +60,3 @@ $font-size-s: $font-size-base * 0.875 !default;
 $pomodoro-length: 540px;
 $pomodoro-color: $red;
 $pomodoro-relax-color: $blue;
-
-

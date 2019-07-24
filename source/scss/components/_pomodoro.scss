@@ -42,10 +42,9 @@
     position: absolute;
     width: 96px;
     height: 96px;
-    background-color: $white;
     border-radius: 50%;
     z-index: 3;
-
+    cursor: pointer;
     &-img {
       border-radius: 50%;
       i {
@@ -57,6 +56,22 @@
           pointer-events: none;
           background-color: darken($white, 20%);
           cursor: default;
+        }
+      }
+    }
+  }
+
+  &-stop {
+    font-size: $font-size-l;
+
+    &:hover {
+      animation: stopAnimation 1s ease-in-out infinite;
+      @keyframes stopAnimation {
+        from {
+          transform: rotate(0deg)
+        }
+        to {
+          transform: rotate(360deg)
         }
       }
     }
@@ -83,6 +98,7 @@
       }
     }
 
+
     &.active {
       // background-color: $pomodoro-color;
       &::after {
@@ -97,6 +113,10 @@
             color: $white;
           }
         }
+      }
+
+      .pomodoro-stop {
+        color: $pomodoro-color;
       }
     }
   }
@@ -136,6 +156,10 @@
             color: $white;
           }
         }
+      }
+
+      .pomodoro-stop {
+        color: $pomodoro-relax-color;
       }
     }
   }

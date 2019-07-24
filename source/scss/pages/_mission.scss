@@ -1,7 +1,6 @@
 .mission {
   position: relative;
   height: 100%;
-  padding-left: 85px;
 
   &-input-group {
     width: 445px;
@@ -17,11 +16,11 @@
     &::placeholder {
       font-weight: bold;
       font-style: italic;
+      color: $mission-color;
     }
   }
 
   &-btn {
-    background-color: $white;
     font-size: $font-size-l;
     border: none;
     outline: none;
@@ -53,7 +52,6 @@
 
   &-name {
     font-size: $font-size-l;
-    color: $info;
   }
 
   &-complete-item {
@@ -68,7 +66,6 @@
 
   &-countDown {
     font-size: $font-size-base * 11; // 176px
-    color: $primary;
     line-height: 1;
   }
 
@@ -111,18 +108,21 @@
           opacity: 1;
         }
       }
+
+      &.active {
+        &::after {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
     }
 
     &-name {
-      color: $info;
       margin-right: auto;
     }
 
     &-pomodoro {
       @include cycle(24px, $info);
-      > i {
-        color: $info;
-      }
     }
   }
 
@@ -146,6 +146,53 @@
             transform: translateX(0px);
           }
         }
+      }
+    }
+  }
+
+  &-folded-list {
+    width: 445px;
+
+    &-title {
+      height: 44px;
+      font-size: $font-size-l;
+
+      &-content {
+        font-size: $font-size-base;
+      }
+    }
+  }
+
+  &-folded-focusTime-number {
+    font-size: $font-size-base * 4;
+  }
+
+  &-select-ringtones {
+    @include cycle(24px, $white);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &::after {
+      content: "";
+      position: absolute;
+      @include cycle(12px, $primary);
+      background-color: $primary;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    &.active,
+    &:hover,
+    &:active,
+    &:focus {
+      border-color: $primary;
+
+      &::after {
+        visibility: visible;
+        opacity: 1;
       }
     }
   }
