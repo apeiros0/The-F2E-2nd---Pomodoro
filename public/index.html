@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="scss/all.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <section class="wrap">
+        <section class="row no-gutters main js-main">
+            <section class="col-8">
+                <section
+                    class="mission mission-primary js-mission pl-6 py-5 d-flex flex-column justify-content-between">
+                    <!-- mission-input -->
+                    <section class="mission-input-group">
+                        <input type="text" class="mission-input js-mission-input p-3 w-100"
+                            placeholder="Add A New Mission...">
+                        <button class="mission-btn js-mission-btn bg-light h-100 p-3" type="button"
+                            id="button-addon1">+</button>
+                    </section>
+
+                    <!-- mission-time -->
+                    <section>
+                        <section class="mission-time js-mission-time">
+                            <section class="row no-gutters align-items-center">
+                                <section class="col-1 js-mission-complete"></section>
+                                <section class="col-7">
+                                    <section class="row">
+                                        <section class="col-12 js-mission-name"></section>
+
+                                        <section class="col-12 mt-1">
+                                            <section class="mission-complete-list js-mission-complete-list mt-1">
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                        <section>
+                            <span class="mission-countDown js-mission-countDown text-primary font-weight-bold">25:00</span>
+                        </section>
+                    </section>
+
+
+                    <!-- mission list -->
+                    <section>
+                        <ul class="mission-list js-mission-list mt-0"></ul>
+                        <div class="mission-more d-flex justify-content-end">
+                            <a href="#"
+                                class="mission-more-link js-mission-more-link text-uppercase font-weight-bold">more</a>
+                        </div>
+                    </section>
+
+                    <!-- pomodoro next => col-6 * 2 + color layout -->
+                    <section
+                        class="pomodoro pomodoro-primary js-pomodoro d-flex justify-content-center align-items-center">
+                        <svg class="pomodoro-animation">
+                            <!-- cx 及 cy 是指定圓形的中心點，而 r 是圓形的半徑 -->
+                            <circle class="pomodoro-animation-circle js-pomodoro-animation-circle" cx="50%" cy="50%"
+                                r="260" stroke-dashoffset="1633"></circle>
+                        </svg>
+                        <div class="pomodoro-start-btn js-pomodoro-start-btn d-flex align-items-end bg-light">
+                            <div class="pomodoro-start-btn-img d-flex justify-content-center align-items-center">
+                                <i class="material-icons js-pomodoro-play">play_arrow</i>
+                                <i class="material-icons js-pomodoro-pause d-none">pause</i>
+
+                            </div>
+                            <i class="material-icons pomodoro-stop js-pomodoro-stop text-light">stop</i>
+                        </div>
+                    </section>
+                </section>
+            </section>
+
+            <section class="col-4">
+                <section class="tool pr-6 py-5 d-flex justify-content-end bg-info">
+                    <div class="d-flex flex-column justify-content-between align-items-center">
+                        <ul class="tool-list">
+                            <li class="tool-item">
+                                <a href="#"><i class="material-icons js-tool-list text-light">list</i></a>
+                            </li>
+                            <li class="tool-item">
+                                <a href="#"><i class="material-icons js-tool-chart text-light">insert_chart</i></a>
+                            </li>
+                            <li class="tool-item">
+                                <a href="#"><i class="material-icons js-tool-music text-light">library_music</i></a>
+                            </li>
+                        </ul>
+                        <div class="d-flex justify-content-center">
+                            <h1 class="title text-uppercase font-weight-bold text-light">POMODORO</h1>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </section>
+
+
+        <section class="row no-gutters js-tool-allList d-none">
+            <section class="col-4">
+                <section class="tool pl-6 pt-5 d-flex justify-content-start bg-info">
+                    <div class="tool-list d-flex flex-column justify-content-between align-items-center">
+                        <section>
+                            <div class="tool-item">
+                                <a href="#" class="tool-item-link js-link-toDOlist d-flex align-items-center text-dark">
+                                    <i class="material-icons mr-2">list</i>
+                                    <span class="tool-item-content text-uppercase font-weight-bold">to-do list</span>
+                                </a>
+                            </div>
+                            <div class="tool-item">
+                                <a href="#" class="tool-item-link js-link-analytic d-flex align-items-center text-dark">
+                                    <i class="material-icons mr-2">insert_chart</i>
+                                    <span class="tool-item-content text-uppercase font-weight-bold">analytics</span>
+                                </a>
+                            </div>
+                            <div class="tool-item">
+                                <a href="#" class="tool-item-link js-link-ringtone d-flex align-items-center text-dark">
+                                    <i class="material-icons mr-2">library_music</i>
+                                    <span class="tool-item-content text-uppercase font-weight-bold">ringtones</span>
+                                </a>
+                            </div>
+                        </section>
+
+                        <section class="tool-time d-flex justify-content-center flex-column align-items-center bg-success">
+                            <section class="tool-time-circle d-flex justify-content-center align-items-center bg-info">
+                                <div class="pomodoro-start-btn js-pomodoro-start-btn">
+                                    <div
+                                        class="pomodoro-start-btn-img d-flex justify-content-center align-items-center">
+                                        <i
+                                            class="material-icons js-tool-pomodoro-play bg-primary text-light">play_arrow</i>
+                                        <i
+                                            class="material-icons js-tool-pomodoro-pause bg-primary text-light d-none">pause</i>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="tool-time-content mt-1 text-center">
+                                <span
+                                    class="tool-time-countDown js-tool-time-countDown text-primary font-weight-bold">25:00</span>
+                                <div class="mission-item-name js-tool-time-name text-info mt-2 font-weight-bold text-uppercase">
+                                </div>
+                            </section>
+                        </section>
+                    </div>
+                </section>
+            </section>
+
+            <!-- to do list page -->
+            <section class="col-6 bg-info js-tool-toDoList d-none">
+                <section class="mission py-5 d-flex flex-column align-items-center">
+                    <section class="mission-input-group">
+                        <input type="text" class="mission-input js-mission-input-folded text-primary p-3 w-100"
+                            placeholder="Add A New Mission...">
+                        <button class="mission-btn js-mission-btn-folded bg-light text-primary h-100 p-3" type="button"
+                            id="button-addon1">+</button>
+                    </section>
+
+                    <section class="mission-folded mt-5">
+                        <!-- to do list -->
+                        <section class="mission-folded-list">
+                            <section class="mission-folded-list-title px-3 py-2 bg-dark d-flex align-items-center">
+                                <h2 class="text-light text-uppercase font-weight-bold mr-auto">to-do</h2>
+                                <i class="material-icons text-light">arrow_drop_up</i>
+                                <i class="material-icons text-light d-none">arrow_drop_down</i>
+                            </section>
+
+                            <ul class="js-mission-folded-toDolist text-light mt-3">
+                            </ul>
+                        </section>
+                        <!-- done list -->
+                        <section class="mission-folded-list mt-5">
+                            <section class="mission-folded-list-title px-3 py-2 bg-dark d-flex align-items-center">
+                                <h2 class="text-light text-uppercase font-weight-bold mr-auto">done</h2>
+                                <i class="material-icons js-drop-up text-light">arrow_drop_up</i>
+                                <i class="material-icons js-drop-down text-light d-none">arrow_drop_down</i>
+                            </section>
+                            <ul class="js-mission-folded-donelist text-light mt-3"></ul>
+                        </section>
+                    </section>
+                </section>
+            </section>
+
+
+            <!-- analytics page -->
+            <section class="col-6 bg-info js-tool-analytic d-none">
+                <section class="py-5 d-flex flex-column align-items-center">
+                    <section class="mission-folded">
+                        <!-- focus time -->
+                        <section class="mission-folded-list">
+                            <section class="mission-folded-list-title px-3 py-2 bg-dark d-flex align-items-center">
+                                <h2 class="text-light text-uppercase font-weight-bold mr-auto">focus time</h2>
+                            </section>
+
+                            <section class="mission-folded-focusTime text-light mt-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <span class="text-uppercase font-weight-bold">today</span>
+                                            </div>
+                                            <div class="col-12">
+                                                <section class="mt-2">
+                                                    <span
+                                                        class="mission-folded-focusTime-number text-primary font-weight-bold">20</span>
+                                                    <span
+                                                        class="ml-2 text-dark font-weight-bold text-uppercase">/tomato</span>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <span class="text-uppercase font-weight-bold">week</span>
+                                            </div>
+                                            <div class="col-12">
+                                                <section class="mt-2">
+                                                    <span
+                                                        class="mission-folded-focusTime-number text-primary font-weight-bold">108</span>
+                                                    <span
+                                                        class="ml-2 text-dark font-weight-bold text-uppercase">/tomato</span>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </section>
+
+                        <!-- chart -->
+                        <section class="mission-folded-list mt-5">
+                            <section class="mission-folded-list-title px-3 py-2 bg-dark d-flex align-items-center">
+                                <h2 class="text-light text-uppercase font-weight-bold mr-auto">chart</h2>
+                                <section
+                                    class="mission-folded-list-title-content d-flex align-items-center font-weight-bold">
+                                    <i class="material-icons text-light">keyboard_arrow_left</i>
+                                    <span class="text-light mx-2">2019.7.1 - 2019.7.7</span>
+                                    <i class="material-icons text-light">keyboard_arrow_right</i>
+                                </section>
+
+                            </section>
+                            <section class="text-light mt-3">
+                                <canvas class="myChart" width="400" height="400"></canvas>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+
+
+            <!-- ringtones page -->
+            <section class="col-6 bg-info js-tool-ringtone d-none">
+                <section class="py-5 d-flex flex-column align-items-center">
+                    <!-- work -->
+                    <section class="mission-folded-list">
+                        <section class="mission-folded-list-title px-3 py-2 bg-dark d-flex align-items-center">
+                            <h2 class="text-light text-uppercase font-weight-bold mr-auto">work</h2>
+                        </section>
+
+                        <section class="mission-folded-work text-light mt-3">
+                            <div class="row js-ringtone-work-list">
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-4 d-flex align-items-center d-flex align-items-center">
+                                                <section
+                                                    class="mission-select-ringtones js-work-ringtones-play-none mr-2 active">
+                                                    <audio src="music/Jazz_Apricot.mp3" class="js-work-ringtones-none"
+                                                        muted></audio>
+                                                </section>
+                                                <span class="text-uppercase font-weight-bold">none</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-4 d-flex align-items-center">
+                                                <section
+                                                    class="mission-select-ringtones js-work-ringtones-play-alert mr-2">
+                                                    <audio src="music/Moskito.mp3"
+                                                        class="js-work-ringtones-alert"></audio>
+                                                </section>
+                                                <span class="text-uppercase font-weight-bold">alert</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-4 d-flex align-items-center">
+                                                <section
+                                                    class="mission-select-ringtones js-work-ringtones-play-default mr-2">
+                                                    <audio src="music/Jazz_Apricot.mp3"
+                                                        class="js-work-ringtones-default"></audio>
+                                                </section>
+                                                <span class="text-uppercase font-weight-bold">Default</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-4 d-flex align-items-center">
+                                                <section
+                                                    class="mission-select-ringtones js-work-ringtones-play-beep mr-2">
+                                                    <audio src="music/New_Land.mp3"
+                                                        class="js-work-ringtones-beep"></audio>
+                                                </section>
+                                                <span class="text-uppercase font-weight-bold">beep</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-4 d-flex align-items-center">
+                                                <section
+                                                    class="mission-select-ringtones js-work-ringtones-play-alarm mr-2">
+                                                    <audio src="music/Mission_Start.mp3"
+                                                        class="js-work-ringtones-alarm"></audio>
+                                                </section>
+                                                <span class="text-uppercase font-weight-bold">alarm</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-4 d-flex align-items-center">
+                                                <section
+                                                    class="mission-select-ringtones js-work-ringtones-play-bell mr-2">
+                                                    <audio src="music/The_Plan_s_Working.mp3"
+                                                        class="js-work-ringtones-bell"></audio>
+                                                </section>
+                                                <span class="text-uppercase font-weight-bold">bell</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+
+                    <!-- break -->
+                    <section class="mission-folded-list mt-5">
+                        <section class="mission-folded-list-title px-3 py-2 bg-dark d-flex align-items-center">
+                            <h2 class="text-light text-uppercase font-weight-bold mr-auto">break</h2>
+                        </section>
+
+                        <section class="js-mission-folded-break text-light mt-3">
+                            <div class="row js-ringtone-break-list">
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-4 d-flex align-items-center d-flex align-items-center">
+                                                <section
+                                                    class="mission-select-ringtones js-break-ringtones-play-none mr-2 active">
+                                                    <audio src="music/Jazz_Apricot.mp3" class="js-break-ringtones-none"
+                                                        muted></audio>
+                                                </section>
+                                                <span class="text-uppercase font-weight-bold">none</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-4 d-flex align-items-center">
+                                                <section
+                                                    class="mission-select-ringtones js-break-ringtones-play-alert mr-2">
+                                                    <audio src="music/Moskito.mp3"
+                                                        class="js-break-ringtones-alert"></audio>
+                                                </section>
+                                                <span class="text-uppercase font-weight-bold">alert</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-4 d-flex align-items-center">
+                                                <section
+                                                    class="mission-select-ringtones js-break-ringtones-play-default mr-2">
+                                                    <audio src="music/Jazz_Apricot.mp3"
+                                                        class="js-break-ringtones-default"></audio>
+                                                </section>
+                                                <span class="text-uppercase font-weight-bold">Default</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-4 d-flex align-items-center">
+                                                <section
+                                                    class="mission-select-ringtones js-break-ringtones-play-beep mr-2">
+                                                    <audio src="music/New_Land.mp3"
+                                                        class="js-break-ringtones-beep"></audio>
+                                                </section>
+                                                <span class="text-uppercase font-weight-bold">beep</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-4 d-flex align-items-center">
+                                                <section
+                                                    class="mission-select-ringtones js-break-ringtones-play-alarm mr-2">
+                                                    <audio src="music/Mission_Start.mp3"
+                                                        class="js-break-ringtones-alarm"></audio>
+                                                </section>
+                                                <span class="text-uppercase font-weight-bold">alarm</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-4 d-flex align-items-center">
+                                                <section
+                                                    class="mission-select-ringtones js-break-ringtones-play-bell mr-2">
+                                                    <audio src="music/The_Plan_s_Working.mp3"
+                                                        class="js-break-ringtones-bell"></audio>
+                                                </section>
+                                                <span class="text-uppercase font-weight-bold">bell</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+
+            <section class="col-2">
+                <section class="tool pr-6 py-5 d-flex justify-content-end bg-info">
+                    <div class="tool-list d-flex flex-column justify-content-between align-items-center">
+                        <section class="tool-list-close">
+                            <i class="material-icons js-tool-list-close text-light">close</i>
+                        </section>
+
+                        <div class="d-flex justify-content-center">
+                            <h1 class="title text-uppercase font-weight-bold text-light">POMODORO</h1>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="js/all.js"></script>
+</body>
+
+</html>
