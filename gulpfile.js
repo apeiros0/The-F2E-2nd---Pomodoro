@@ -14,7 +14,7 @@ var options = minimist(process.argv.slice(2), envOptions);
 
 
 gulp.task('clean', function () {
-    return gulp.src(['./.tmp', './public'], {read: false})
+    return gulp.src(['./.tmp', './public'], { read: false })
         .pipe($.clean());
 });
 
@@ -62,7 +62,7 @@ gulp.task('babel', () =>
         .pipe(browserSync.stream())
 );
 
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', function () {
     browserSync.init({
         server: {
             baseDir: "./public/"  // 指定資料夾 (釋出的檔案位置)
@@ -77,8 +77,13 @@ gulp.task('watch', function () {
     gulp.watch('./source/js/**/*.js', ['babel']);
 });
 
+gulp.task('deploy', function () {
+    return gulp.src('./public/**/*') // 發布路徑
+        .pipe($.ghPages());
+});
 
-gulp.task('default', ['sass', 'babel', 'copyHTML', 'copyMusic', 'browser-sync','watch']);
+
+gulp.task('default', ['sass', 'babel', 'copyHTML', 'copyMusic', 'browser-sync', 'watch']);
 
 
 gulp.task('build', gulpSequence('clean', 'babel', 'sass', 'copyHTML', 'copyMusic'));
