@@ -1,6 +1,6 @@
+.publish
 .vscode
 node_modules
 .tmp
 public
 vendors
-.publish
