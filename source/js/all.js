@@ -26,9 +26,7 @@
     let pomodoroStop = document.querySelector('.js-pomodoro-stop');
 
     // link
-    let toolList = document.querySelector('.js-tool-list');
-    let toolChart = document.querySelector('.js-tool-chart');
-    let toolMusic = document.querySelector('.js-tool-music');
+    let tools = document.querySelectorAll('.js-tools');
 
     // circle variables
     let pomodoroCircleAnime = document.querySelector('.js-pomodoro-animation-circle');
@@ -52,9 +50,9 @@
     let linkAnalytic = document.querySelector('.js-link-analytic');
     let linkRingtone = document.querySelector('.js-link-ringtone');
     // content
-    let tooltoDoList = document.querySelector('.js-tool-toDoList');
-    let toolAnalytic = document.querySelector('.js-tool-analytic');
-    let toolRingtone = document.querySelector('.js-tool-ringtone');
+    let tooltoDoList = toolAllList.querySelector('.js-tool-toDoList');
+    let toolAnalytic = toolAllList.querySelector('.js-tool-analytic');
+    let toolRingtone = toolAllList.querySelector('.js-tool-ringtone');
     // element
     let inputMissionFoldedBtn = document.querySelector('.js-mission-btn-folded');
     let missionFoldedToDolist = document.querySelector('.js-mission-folded-toDolist');
@@ -81,22 +79,29 @@
     missionList.addEventListener('click', delMission); // missionList Btn 監聽
     missionComplete.addEventListener('click', delMission); // missionComplete Btn 監聽
 
-    missionMoreLink.addEventListener('click', () => hideMainPage());
-    toolList.addEventListener('click', () => {
+    missionMoreLink.addEventListener('click', () => {
         hideMainPage(toolAllList);
         hideMainPage(tooltoDoList);
         changeLinkColor(linkList);
     });
-    toolChart.addEventListener('click', () => {
-        hideMainPage(toolAllList);
-        hideMainPage(toolAnalytic);
-        changeLinkColor(linkAnalytic);
+
+    tools.forEach(tool => {
+        tool.addEventListener('click', (e) => {
+            let name, link;
+            if (e.target.getAttribute('name') === 'list') {
+                name = tooltoDoList, link = linkList;
+            } else if (e.target.getAttribute('name') === 'chart') {
+                name = toolAnalytic, link = linkAnalytic;
+            } else if (e.target.getAttribute('name') === 'music') {
+                name = toolRingtone, link = linkRingtone;
+            }
+
+            hideMainPage(toolAllList);
+            hideMainPage(name);
+            changeLinkColor(link);
+        });
     });
-    toolMusic.addEventListener('click', () => {
-        hideMainPage(toolAllList);
-        hideMainPage(toolRingtone);
-        changeLinkColor(linkRingtone);
-    });
+
     toolListClose.addEventListener('click', () => showMainPage(toolAllList));
 
     // todo List Page
@@ -304,21 +309,17 @@
     // 顯示暫存 mission
     function updateTempMission() {
         // localStorage.setItem('tempMissionContent', JSON.stringify(tempMissionArray));
-
-        let tempStr = '';
-        tempMissionArray.forEach((item, index) => {
-            tempStr += `
-                <li class="mission-item mb-2 d-flex align-items-center">
-                    <div class="mission-item-complete active bg-light d-flex justify-content-center align-items-center"></div>
-                    <section class="mission-item-name ml-2 font-weight-bold text-uppercase">
-                        <del class="text-light text-decoration">${ item}</del>
-                    </section>
-                    <section class="mission-item-pomodoro d-flex justify-content-center align-items-center bg-light"></section>
-                </li>
-            `;
-        });
-
-        missionFoldedDonelist.innerHTML = tempStr;
+        missionFoldedDonelist.innerHTML = tempMissionArray.map(item => {
+            return `
+            <li class="mission-item mb-2 d-flex align-items-center">
+                <div class="mission-item-complete active bg-light d-flex justify-content-center align-items-center"></div>
+                <section class="mission-item-name ml-2 font-weight-bold text-uppercase">
+                    <del class="text-light text-decoration">${item}</del>
+                </section>
+                <div class="mission-item-pomodoro d-flex justify-content-center align-items-center bg-light"></div>
+            </li>
+        `
+        }).join('');
     }
 
     // 顯示點擊的頁面
@@ -562,9 +563,7 @@
     let breakRingtonesPlayNone = document.querySelector('.js-break-ringtones-play-none');
     let breakRingtonesNone = document.querySelector('.js-break-ringtones-none');
 
-    let ringtonesWorkList = document.querySelector('.js-ringtone-work-list');
-    let ringtonesBreakList = document.querySelector('.js-ringtone-break-list');
-
+    let ringtones = toolRingtone.querySelectorAll('.js-ringtones');
     let workNowPlay = workRingtonesNone; // 記錄正在播放的鈴聲
     let workNowPlayBtn = workRingtonesPlayNone; // 記錄正在播放的按鈕
 
@@ -597,44 +596,33 @@
     }
 
     // 清除 Work 鈴聲和按鈕
-    function clearBreakkRingtones() {
+    function clearBreakRingtones() {
         breakNowPlay.load(); // 重新載入鈴聲
         breakNowPlayBtn.classList.remove('active');
     }
 
     // 監聽
-    ringtonesWorkList.addEventListener('click', (e) => {
-        e.preventDefault();
+    ringtones.forEach(ringtone => {
+        ringtone.addEventListener('click', (e) => {
+            e.preventDefault();
 
-        // 把 SECTION 以外的元素擋掉
-        if (e.target.nodeName !== 'SECTION') return;
+            // 把 SECTION 以外的元素擋掉
+            if (e.target.nodeName !== 'SECTION') return;
 
-        ringtonesArray.forEach((item) => {
-            // 判斷 classList 的 class name 是否相同
-            if (e.target.classList[1] === `js-work-ringtones-play-${item}`) {
-                clearWorkRingtones();
-                // e.target.children[0] 傳入子元素
-                // e.target 傳入當下的元素
-                playWorkRingtones(e.target.children[0], e.target);
-            }
-        });
-    });
+            ringtonesArray.forEach(item => {
+                // 判斷 classList 的 class name 是否相同
+                if (e.target.classList[1] === `js-work-ringtones-play-${item}`) {
+                    clearWorkRingtones();
+                    // e.target.children[0] 傳入子元素
+                    // e.target 傳入當下的元素
+                    playWorkRingtones(e.target.children[0], e.target);
+                }
 
-
-    ringtonesBreakList.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        // 把 SECTION 以外的元素擋掉
-        if (e.target.nodeName !== 'SECTION') return;
-
-        ringtonesArray.forEach((item) => {
-            // 判斷 classList 的 class name 是否相同
-            if (e.target.classList[1] === `js-break-ringtones-play-${item}`) {
-                clearBreakkRingtones();
-                // e.target.children[0] 傳入子元素
-                // e.target 傳入當下的元素
-                playBreakRingtones(e.target.children[0], e.target);
-            }
+                if (e.target.classList[1] === `js-break-ringtones-play-${item}`) {
+                    clearBreakRingtones();
+                    playBreakRingtones(e.target.children[0], e.target);
+                }
+            });
         });
     });
 
